@@ -30,6 +30,23 @@
                         <option value="3">User Marker</option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <div class="form-label">Acces Item</div>
+                    <div>
+                        <label class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sales" name="sales">
+                            <option value="1">Sales</option>
+                        </label>
+                        <label class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="purchase" name="purchase">
+                            <option value="1">Purchase</option>
+                        </label>
+                        <label class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="iventory" name="iventory">
+                            <option value="1">Iventory</option>
+                        </label>
+                    </div>
+                </div>
                 <div class="form-footer">
                     <button type="submit" class="btn btn-primary w-100">Create new account</button>
                 </div>

@@ -82,7 +82,7 @@ class Dashboard extends CI_Controller
             // $sales = str_replace('1', '0', $sales_value);
             $sales = isset($_POST['sales']) ? '1000000000000' : '0000000000000';
             $purchase = isset($_POST['purchase']) ? '1000000000000' : '0000000000000';
-            $iventory = isset($_POST['iventory']) ? '1000000000000' : '0000000000000';
+            $inventory = isset($_POST['inventory']) ? '1000000000000' : '0000000000000';
             $data = [
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'username' => htmlspecialchars($this->input->post('username', true)),
@@ -90,7 +90,7 @@ class Dashboard extends CI_Controller
                 'role_id' => htmlspecialchars($this->input->post('role_id', true)),
                 'sales' => $sales,
                 'purchase' => $purchase,
-                'iventory' => $iventory
+                'inventory' => $inventory
             ];
             $this->db->insert('user', $data);
             $this->session->set_flashdata('registrasi', '<div class="alert alert-success" role="alert">User pengguna berhasil di tambahkan !</div>');
@@ -116,11 +116,33 @@ class Dashboard extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function edit($id)
+    {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['title'] = 'Edit User';
+        $this->load->model('Dashboard_model');
+        $data['iduser'] = $this->Dashboard_model->getIdUser($id);
+        $data['role'] = $this->db->get('role')->result_array();
+        $this->form_validation->set_rules('name', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim');
+        $this->form_validation->set_rules('role_id', 'Role_id', 'required|trim');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('dashboard/edit', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->Dashboard_model->editUser();
+
+            $this->session->set_flashdata('user', '<div class="alert alert-success" role="alert">User berhasil di update !</div>');
+            redirect('dashboard/regis');
+        }
+    }
+
     public function hapus($id)
     {
         $this->db->where('id', $id);
         $this->db->delete('user');
-        $this->session->set_flashdata('hapus_user', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus !</div>');
+        $this->session->set_flashdata('user', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus !</div>');
         redirect('dashboard/regis');
     }
 }

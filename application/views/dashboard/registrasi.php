@@ -27,9 +27,9 @@
                     <div class=" mb-3">
                         <select class="form-select" aria-label="Default select example" id="role_id" name="role_id">
                             <option selected>Level User</option>
-                            <option value="1">Administrator</option>
-                            <option value="2">User Approve</option>
-                            <option value="3">User Marker</option>
+                            <?php foreach ($role as $r) : ?>
+                                <option value="<?= $r['id']; ?>"><?= $r['role_name']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -44,8 +44,8 @@
                                 <option value="1">Purchase</option>
                             </label>
                             <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="iventory" name="iventory">
-                                <option value="1">Iventory</option>
+                                <input class="form-check-input" type="checkbox" id="inventory" name="inventory">
+                                <option value="1">Inventory</option>
                             </label>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
     <div class="col-lg-7">
         <br>
         <div class="card">
-            <?= $hapus_user = $this->session->flashdata('hapus_user'); ?>
+            <?= $user = $this->session->flashdata('user'); ?>
             <div class="card-header">
                 <h3 class="card-title">User</h3>
             </div>
