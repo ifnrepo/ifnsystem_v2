@@ -428,38 +428,6 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?= base_url('dashboard/icon'); ?>">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alien" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M11 17a2.5 2.5 0 0 0 2 0"></path>
-                                            <path d="M12 3c-4.664 0 -7.396 2.331 -7.862 5.595a11.816 11.816 0 0 0 2 8.592a10.777 10.777 0 0 0 3.199 3.064c1.666 1 3.664 1 5.33 0a10.777 10.777 0 0 0 3.199 -3.064a11.89 11.89 0 0 0 2 -8.592c-.466 -3.265 -3.198 -5.595 -7.862 -5.595z"></path>
-                                            <path d="M8 11l2 2"></path>
-                                            <p d="M16 11l-2 2"></p ath>
-                                        </svg>
-                                    </span>
-                                    <span class="nav-link-title">
-                                        4637 icons
-                                    </span>
-                                </a>
-                            </li>
-
-                            <li class="nav-item active">
-                                <a class="nav-link" href="<?= base_url('dashboard/form'); ?>">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-                                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-                                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-                                        </svg>
-                                    </span>
-                                    <span class="nav-link-title">
-                                        form
-                                    </span>
-                                </a>
-                            </li>
                         </ul>
                         <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
                             <ul class="navbar-nav">
@@ -473,28 +441,23 @@
                                             </svg>
                                         </span>
                                         <span class="nav-link-title">
-                                            Master Setting
+                                            Master
                                         </span>
                                     </a>
                                     <div class="dropdown-menu">
                                         <div class="dropdown-menu-columns">
                                             <div class="dropdown-menu-column">
                                                 <a class="dropdown-item" href="<?= base_url('dashboard/regis'); ?>">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M5 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                                                        <path d="M3 21v-2a4 4 0 0 1 4 -4h4c.96 0 1.84 .338 2.53 .901"></path>
+                                                        <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                                                        <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
                                                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                                        <path d="M16 19h6"></path>
-                                                        <path d="M19 16v6"></path>
+                                                        <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path>
                                                     </svg>
                                                     <span class="nav-link-title">
-                                                        Creat User
+                                                        User <span class="badge badge-sm bg-green-lt text-uppercase ms-auto">Setting</span>
                                                     </span>
-                                                </a>
-                                                <a class="dropdown-item" href="./cookie-banner.html">
-                                                    Cookie banner
-                                                    <span class="badge badge-sm bg-green-lt text-uppercase ms-auto">New</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -526,21 +489,14 @@
                                         </div>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <a href="<?= base_url('dashboard/regis') ?>" class="dropdown-item">Status</a>
-
-                                        <a href="<?= base_url('dashboard/profile') ?>" class="dropdown-item">Profile</a>
-                                        <div class="dropdown-divider"></div>
-
-                                        <?php
-                                        $role_id = $this->session->userdata('role_id');
-                                        if ($role_id == 1) {
-                                        ?>
-                                            <a href="<?= base_url('dashboard/role') ?>" class="dropdown-item">Settings</a>
-                                        <?php
-                                        }
-                                        ?>
-
-                                        <a href="<?= base_url('auth/logout') ?>" class="dropdown-item">Logout</a>
+                                        <a href="<?= base_url('auth/logout') ?>" class="dropdown-item">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-run" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M13 4m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                                <path d="M4 17l5 1l.75 -1.5"></path>
+                                                <path d="M15 21l0 -4l-4 -3l1 -6"></path>
+                                                <path d="M7 12l0 -3l5 -1l3 3l3 1"></path>
+                                            </svg>Logout</a>
                                     </div>
                                 </div>
                             </ul>

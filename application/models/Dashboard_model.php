@@ -10,6 +10,18 @@ class Dashboard_model extends CI_model
         return $this->db->get()->result_array();
     }
 
+    public function cariDataUser()
+    {
+        $keyword = $this->input->post('keyword', true);
+        $this->db->select('user.*, role.role_name');
+        $this->db->from('user');
+        $this->db->join('role', 'role.id = user.role_id', 'left');
+        $this->db->like('user.name', $keyword);
+        $this->db->or_like('user.username', $keyword);
+        $this->db->or_like('role.role_name', $keyword);
+        return $this->db->get()->result_array();
+    }
+
     public function getIdUser($id)
     {
         $this->db->select('user.*, role.role_name');
@@ -25,27 +37,17 @@ class Dashboard_model extends CI_model
         $sales = isset($_POST['sales']) ? '1000000000000' : '0000000000000';
         $purchase = isset($_POST['purchase']) ? '1000000000000' : '0000000000000';
         $inventory = isset($_POST['inventory']) ? '1000000000000' : '0000000000000';
-
-        // Jika tidak ada checkbox yang dipilih, pastikan nilainya '0000000000000'
-        if (!isset($_POST['sales'])) {
-            $sales = '0000000000000';
-        }
-        if (!isset($_POST['purchase'])) {
-            $purchase = '0000000000000';
-        }
-        if (!isset($_POST['inventory'])) {
-            $inventory = '0000000000000';
-        }
-
         $data = [
             'id' => $this->input->post('id', true),
             "name" => $this->input->post('name', true),
             "username" => $this->input->post('username', true),
             "role_id" => $this->input->post('role_id', true),
+            "password" => $this->input->post('password', true),
             "sales" => $sales,
             "purchase" => $purchase,
             "inventory" => $inventory,
         ];
+
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('user', $data);
     }

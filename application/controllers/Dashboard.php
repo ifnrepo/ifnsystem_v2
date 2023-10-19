@@ -60,8 +60,11 @@ class Dashboard extends CI_Controller
 
         $this->load->model('Dashboard_model');
         $data['alluser'] = $this->Dashboard_model->getAllUser();
+        if ($this->input->post('keyword')) {
+            $data['alluser'] = $this->Dashboard_model->cariDataUser();
+        }
         $data['role'] = $this->db->get('role')->result_array();
-        // $data['page'] = $page;
+
         $this->form_validation->set_rules('name', 'Nama', 'required|trim');
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('password1', 'password', 'required|trim|min_length[3]|matches[password2]', [
@@ -126,13 +129,16 @@ class Dashboard extends CI_Controller
         $this->form_validation->set_rules('name', 'Nama', 'required|trim');
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('role_id', 'Role_id', 'required|trim');
+        $this->form_validation->set_rules('password', 'Password', 'required|trim');
+        $this->form_validation->set_rules('sales', 'Sales',);
+        $this->form_validation->set_rules('inventory', 'Inventory',);
+        $this->form_validation->set_rules('purchase', 'Purchase');
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('dashboard/edit', $data);
             $this->load->view('templates/footer');
         } else {
             $this->Dashboard_model->editUser();
-
             $this->session->set_flashdata('user', '<div class="alert alert-success" role="alert">User berhasil di update !</div>');
             redirect('dashboard/regis');
         }
@@ -144,5 +150,49 @@ class Dashboard extends CI_Controller
         $this->db->delete('user');
         $this->session->set_flashdata('user', '<div class="alert alert-danger" role="alert">Data Berhasil Dihapus !</div>');
         redirect('dashboard/regis');
+    }
+    public function change_password($id)
+    {
+        $data['user'] = $this->db->get_where('user', ['id' => $id])->row_array();
+        $data['title'] = 'Change password';
+        $data['iduser'] = $this->Dashboard_model->getIdUser($id);
+
+        $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
+        $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[3]|matches[new_password2]');
+        $this->form_validation->set_rules('new_password2', 'Confirm New Password', 'required|trim|min_length[3]|matches[new_password1]');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('dashboard/change', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $current_password = $this->input->post('current_password');
+            $new_password = $this->input->post('new_password1');
+
+            // Fetch the user data based on the provided ID
+            $user = $this->db->get_where('user', ['id' => $id])->row_array();
+
+            // Jika password yang dimasukkan salah
+            if (!password_verify($current_password, $user['password'])) {
+                $this->session->set_flashdata('password', '<div class="alert alert-danger" role="alert">Mohon maaf, password yang Anda masukkan salah!</div>');
+                redirect('dashboard/change_password/' . $id);
+            } else {
+                // Jika password baru sama dengan password lama
+                if ($current_password == $new_password) {
+                    $this->session->set_flashdata('password', '<div class="alert alert-danger" role="alert">Password baru tidak boleh sama dengan password lama!</div>');
+                    redirect('dashboard/change_password/' . $id);
+                } else {
+                    // Jika password sudah benar
+                    $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+
+                    $this->db->set('password', $password_hash);
+                    $this->db->where('id', $id);
+                    $this->db->update('user');
+
+                    $this->session->set_flashdata('password', '<div class="alert alert-success" role="alert">Password berhasil diubah!</div>');
+                    redirect('dashboard/regis');
+                }
+            }
+        }
     }
 }
