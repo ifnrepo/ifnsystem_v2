@@ -61,7 +61,7 @@
         <div class="card">
             <?= $user = $this->session->flashdata('user'); ?>
             <div class="card-header">
-                <h1 class="card-title">User</h1>
+                <h1 class="card-title">Halaman User</h1>
             </div>
             <div class="card-body border-bottom py-3">
                 <div class="d-flex">
