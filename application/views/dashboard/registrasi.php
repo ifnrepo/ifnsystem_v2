@@ -4,7 +4,7 @@
             <form class="card card-md" action="<?= base_url('dashboard/regis'); ?>" method="post">
                 <?= $registrasi = $this->session->flashdata('registrasi'); ?>
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Create account</h2>
+                    <h2 class="card-title text-center mb-4">Tambah User</h2>
                     <div class="mb-3">
                         <label class="form-label">Name</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="Full name">
@@ -27,9 +27,9 @@
                     <div class=" mb-3">
                         <select class="form-select" aria-label="Default select example" id="role_id" name="role_id">
                             <option selected>Level User</option>
-                            <option value="1">Administrator</option>
-                            <option value="2">User Approve</option>
-                            <option value="3">User Marker</option>
+                            <?php foreach ($role as $r) : ?>
+                                <option value="<?= $r['id']; ?>"><?= $r['role_name']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -44,13 +44,13 @@
                                 <option value="1">Purchase</option>
                             </label>
                             <label class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="iventory" name="iventory">
-                                <option value="1">Iventory</option>
+                                <input class="form-check-input" type="checkbox" id="inventory" name="inventory">
+                                <option value="1">Inventory</option>
                             </label>
                         </div>
                     </div>
                     <div class="form-footer">
-                        <button type="submit" class="btn btn-primary w-100">Create new account</button>
+                        <button type="submit" class="btn btn-primary w-100">Tambah Data Baru</button>
                     </div>
                 </div>
             </form>
@@ -59,16 +59,26 @@
     <div class="col-lg-7">
         <br>
         <div class="card">
-            <?= $hapus_user = $this->session->flashdata('hapus_user'); ?>
+            <?= $user = $this->session->flashdata('user'); ?>
             <div class="card-header">
-                <h3 class="card-title">User</h3>
+                <h1 class="card-title">User</h1>
             </div>
             <div class="card-body border-bottom py-3">
                 <div class="d-flex">
                     <div class="ms-auto text-secondary">
-                        Search:
-                        <div class="ms-2 d-inline-block">
-                            <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-question" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5"></path>
+                            <path d="M19 22v.01"></path>
+                            <path d="M19 19a2.003 2.003 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483"></path>
+                        </svg> Cari Data User
+                        <br>
+                        <div class="ms-2 d-flex justify-content-center">
+                            <form action="" method="post" class="d-inline-flex">
+                                <input type="search" class="form-control form-control-sm" name="keyword" aria-label="Search invoice" placeholder="Cari Data..">
+                                <button type="submit" class="btn btn-sm btn-primary">Cari</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -100,13 +110,24 @@
                                         <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <!-- <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit<?= $us['id']; ?>">Edit</a> -->
+                                            <a href="<?= base_url(); ?>dashboard/change_password/<?= $us['id']; ?>" class="dropdown-item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                    <path d="M12.5 21h-5.5a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2h10a2 2 0 0 1 1.739 1.01"></path>
+                                                    <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
+                                                    <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
+                                                    <path d="M19 22v-6"></path>
+                                                    <path d="M22 19l-3 -3l-3 3"></path>
+                                                </svg> Ganti Password
+                                            </a>
+
                                             <a href="<?= base_url(); ?>dashboard/edit/<?= $us['id']; ?>" class="dropdown-item">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                                     <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
                                                     <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5"></path>
                                                     <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z"></path>
-                                                </svg> edit
+                                                </svg> Edit
                                             </a>
 
                                             <a href="<?= base_url(); ?>dashboard/hapus/<?= $us['id']; ?>" class="dropdown-item" onclick="return confirm('yakin ? user ini ingin di hapus ?');">
