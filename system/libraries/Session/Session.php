@@ -861,25 +861,45 @@ class CI_Session {
 	 * @param	string	$key	Session data key
 	 * @return	mixed	Session data value or NULL if not found
 	 */
+	// public function flashdata($key = NULL)
+	// {
+	// 	if (isset($key))
+	// 	{
+	// 		return (isset($_SESSION['__ci_vars'], $_SESSION['__ci_vars'][$key], $_SESSION[$key]) && ! is_int($_SESSION['__ci_vars'][$key]))
+	// 			? $_SESSION[$key]
+	// 			: NULL;
+	// 	}
+
+	// 	$flashdata = array();
+
+	// 	if ( ! empty($_SESSION['__ci_vars']))
+	// 	{
+	// 		foreach ($_SESSION['__ci_vars'] as $key => &$value)
+	// 		{
+	// 			is_int($value) OR $flashdata[$key] = $_SESSION[$key];
+	// 		}
+	// 	}
+
+	// 	return $flashdata;
+	// }
 	public function flashdata($key = NULL)
 	{
-		if (isset($key))
-		{
-			return (isset($_SESSION['__ci_vars'], $_SESSION['__ci_vars'][$key], $_SESSION[$key]) && ! is_int($_SESSION['__ci_vars'][$key]))
+		if (isset($key)) {
+			$return = (isset($_SESSION['__ci_vars'], $_SESSION['__ci_vars'][$key], $_SESSION[$key]) && !is_int($_SESSION['__ci_vars'][$key]))
 				? $_SESSION[$key]
 				: NULL;
+			unset($_SESSION[$key]);
+			return $return;
 		}
 
 		$flashdata = array();
 
-		if ( ! empty($_SESSION['__ci_vars']))
-		{
-			foreach ($_SESSION['__ci_vars'] as $key => &$value)
-			{
-				is_int($value) OR $flashdata[$key] = $_SESSION[$key];
+		if (!empty($_SESSION['__ci_vars'])) {
+			foreach ($_SESSION['__ci_vars'] as $key => &$value) {
+				is_int($value) or $flashdata[$key] = $_SESSION[$key];
 			}
 		}
-
+		unset($_SESSION[$key]);
 		return $flashdata;
 	}
 
