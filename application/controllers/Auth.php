@@ -39,16 +39,20 @@ class Auth extends CI_Controller
                     'id' => $user['id'],
                     'username' => $user['username'],
                     'role_id' => $user['role_id'],
+                    'haksales' => $user['sales'],
+                    'hakpuchase' => $user['purchase'],
+                    'hakinv' => $user['inventory']
                 ];
 
                 $this->session->set_userdata($user_data);
-                if ($user['role_id'] == 1) {
-                    redirect('dashboard');
-                } elseif ($user['role_id'] == 2) {
-                    redirect('purchase');
-                } else {
-                    redirect('iventory');
-                }
+                redirect('dashboard');
+                // if ($user['role_id'] == 1) {
+                //     redirect('dashboard');
+                // } elseif ($user['role_id'] == 2) {
+                //     redirect('purchase');
+                // } else {
+                //     redirect('iventory');
+                // }
             } else {
 
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password yang Anda masukkan salah!</div>');

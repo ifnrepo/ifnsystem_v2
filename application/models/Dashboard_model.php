@@ -47,6 +47,11 @@ class Dashboard_model extends CI_model
             "purchase" => $purchase,
             "inventory" => $inventory,
         ];
+        if($this->input->post('id')==$this->session->userdata('id')){
+            $this->session->set_userdata('haksales',$sales);
+            $this->session->set_userdata('hakpurchase',$purchase);
+            $this->session->set_userdata('hakinv',$inventory);
+        }
 
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('user', $data);

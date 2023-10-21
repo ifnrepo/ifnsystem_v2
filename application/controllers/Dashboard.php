@@ -107,7 +107,7 @@ class Dashboard extends CI_Controller
         $data['title'] = 'users';
         $this->load->model('Dashboard_model');
         $allUsers = $this->Dashboard_model->getAllUser();
-        $entries_per_page = 8;
+        $entries_per_page = 20;
         $offset = ($page - 1) * $entries_per_page;
 
 
