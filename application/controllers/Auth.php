@@ -40,7 +40,7 @@ class Auth extends CI_Controller
                     'username' => $user['username'],
                     'role_id' => $user['role_id'],
                     'haksales' => $user['sales'],
-                    'hakpuchase' => $user['purchase'],
+                    'hakpurchase' => $user['purchase'],
                     'hakinv' => $user['inventory']
                 ];
 

@@ -7,7 +7,7 @@
                 <form action="<?= base_url('auth'); ?>" method="post">
                     <div class="mb-3">
                         <label class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?= set_value('username'); ?>">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?= set_value('username'); ?>" autocomplete="false">
                         <?= form_error('username', '<small class="text-danger pl-2">', '</small>'); ?>
                     </div>
                     <div class="mb-2">
